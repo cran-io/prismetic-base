@@ -1,13 +1,13 @@
 {
-  "name": "prismetic-base",
+  "name": "resin-wifi-connect",
   "version": "1.0.0",
-  "repository": "https://github.com/cran-io/prismetic-base",
-  "description": "Prismetic Base",
+  "repository": "https://github.com/pcarranzav/resin-wifi-connect",
+  "description": "A tool to allow wifi configuration to be set via a captive portal",
   "scripts": {
     "start": "cd src && node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Javier Velazquez Traut <javier@cran.io>",
+  "author": "Pablo Carranza Vélez <pablo@resin.io>",
   "license": "ISC",
   "dependencies": {
     "async": "^1.3.0",
