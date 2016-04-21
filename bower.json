@@ -1,9 +1,9 @@
 {
-  "name": "resin-wifi-connect",
+  "name": "prismetic-base",
   "version": "0.0.0",
-  "homepage": "https://github.com/pcarranzav/resin-wifi-connect",
+  "homepage": "https://github.com/cran-io/prismetic-base",
   "authors": [
-    "Pablo Carranza Vélez <pablocarranza@gmail.com>"
+    "Javier Velazquez Traut <javier@cran.io>"
   ],
   "license": "MIT",
   "ignore": [
