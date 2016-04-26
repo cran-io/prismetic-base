@@ -15,6 +15,8 @@ RUN apt-get update && apt-get install -y \
 	python-dev \
 	python-dbus \
 	python-pip \
+	gcc-4.7 \
+	g++-4.7 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /var/run/sshd \
@@ -23,12 +25,16 @@ RUN mkdir /var/run/sshd \
     && sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
     && sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
 
+# SSH Init
 ENV INITSYSTEM on
 COPY ssh.sh /ssh.sh
-COPY src/ /usr/src/app
 
 CMD ["bash", "/ssh.sh"]
 
+# Python Flask package
+RUN pip install flask
+
+# Wifi Connect
 RUN systemctl disable connman
 
 COPY ./assets/bind /etc/bind
@@ -49,7 +55,17 @@ RUN chmod +x ./start
 
 VOLUME /var/lib/connman
 
-# Here we add the pip Flask package
-RUN pip install flask
+# RF24 Compilation
+COPY . /app
 
+WORKDIR /app/RF24Network
+RUN CC=gcc-4.7 sudo make install
+
+CMD modprobe spi-dev
+
+WORKDIR /app/RF24Network/examples_RPi
+RUN CC=gcc-4.7 make
+RUN chmod +x ./helloworld_rx
+
+# Start Posting
 CMD ./start
