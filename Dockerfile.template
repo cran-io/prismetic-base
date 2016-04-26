@@ -56,16 +56,15 @@ RUN chmod +x ./start
 VOLUME /var/lib/connman
 
 # RF24 Compilation
-COPY . /app
-
-WORKDIR /app/RF24Network
+WORKDIR /usr/src/app/RF24Network
 RUN CC=gcc-4.7 sudo make install
 
 CMD modprobe spi-dev
 
-WORKDIR /app/RF24Network/examples_RPi
+WORKDIR /usr/src/app/RF24Network/examples_RPi
 RUN CC=gcc-4.7 make
 RUN chmod +x ./helloworld_rx
+CMD ./helloworld_rx server.py
 
-# Start Posting
+# Start RF24 and Posting
 CMD ./start
