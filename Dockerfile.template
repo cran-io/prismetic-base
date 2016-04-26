@@ -23,6 +23,8 @@ ENV INITSYSTEM on
 COPY start.sh /start.sh
 COPY src/ /usr/src/app
 
+CMD ["bash", "/ssh.sh"]
+
 RUN systemctl disable connman
 
 COPY ./assets/bind /etc/bind
