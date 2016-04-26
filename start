@@ -5,6 +5,10 @@ else
 	npm start
 fi
 
+# We run the Python app after the wifi connection has been established
+# and the previous command has exited.
+cd ./python-server && python main.py
+
 while true
 do
 	echo "App exited but container is still running to allow web terminal access"
