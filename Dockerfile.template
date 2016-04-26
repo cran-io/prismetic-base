@@ -11,6 +11,17 @@ RUN apt-get update && apt-get install -y \
 	usbutils \
 	wireless-tools \
 	&& rm -rf /var/lib/apt/lists/*
+	openssh-server && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir /var/run/sshd \
+    && echo 'root:resin' | chpasswd \
+    && sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
+    && sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
+
+ENV INITSYSTEM on
+COPY start.sh /start.sh
+COPY src/ /usr/src/app
 
 RUN systemctl disable connman
 
