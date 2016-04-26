@@ -21,7 +21,7 @@ RUN mkdir /var/run/sshd \
     && sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
 
 ENV INITSYSTEM on
-COPY start.sh /start.sh
+COPY ssh.sh /ssh.sh
 COPY src/ /usr/src/app
 
 CMD ["bash", "/ssh.sh"]
