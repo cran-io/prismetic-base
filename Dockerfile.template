@@ -12,6 +12,10 @@ RUN apt-get update && apt-get install -y \
 	wireless-tools \
 	&& rm -rf /var/lib/apt/lists/* \
 	openssh-server && \
+	python \
+	python-dev \
+	python-dbus \
+	python-pip \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /var/run/sshd \
@@ -43,6 +47,9 @@ RUN ./node_modules/.bin/bower --allow-root install \
 COPY . ./
 RUN ./node_modules/.bin/coffee -c ./src
 RUN chmod +x ./start
+
+# Here we add the pip Flask package
+RUN pip install flask
 
 VOLUME /var/lib/connman
 
