@@ -32,7 +32,7 @@ endif
 
 
 # define all programs
-PROGRAMS = rx-test helloworld_rx helloworld_tx
+PROGRAMS = helloworld_rx
 SOURCES = ${PROGRAMS:=.cpp}
 
 all: ${PROGRAMS}
