@@ -37,16 +37,16 @@ RUN mkdir -p /usr/src/app/
 COPY . /usr/src/app
 
 # RF24 Compilation
-WORKDIR /usr/src/app/RF24
+WORKDIR /usr/src/app/RF24-master
 RUN ./configure
 RUN make install
 
 # RF24Network Compilation
-WORKDIR /usr/src/app/RF24Network
+WORKDIR /usr/src/app/RF24Network-master
 RUN ./configure
 RUN make install
 
-# WORKDIR /usr/src/app/RF24Network/examples_RPi
+# WORKDIR /usr/src/app/RF24Network-master/examples_RPi
 RUN make
 RUN chmod +x ./helloworld_rx
 RUN mkdir -p /data/logs/RF24Network
