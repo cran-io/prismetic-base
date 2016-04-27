@@ -57,14 +57,14 @@ VOLUME /var/lib/connman
 
 # RF24 Compilation
 WORKDIR /usr/src/app/RF24Network
-RUN CC=gcc-4.7 sudo make install
+RUN make install
 
 # RF24Network Compilation
 WORKDIR /usr/src/app/RF24Network
-RUN CC=gcc-4.7 sudo make install
+RUN make install
 
 WORKDIR /usr/src/app/RF24Network/examples_RPi
-RUN CC=gcc-4.7 make
+RUN make
 RUN chmod +x ./helloworld_rx
 CMD ./helloworld_rx
 
