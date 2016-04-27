@@ -15,6 +15,8 @@ RUN apt-get update && apt-get install -y \
 	python-dev \
 	python-dbus \
 	python-pip \
+	make \
+	cmake \
 	gcc-4.7 \
 	g++-4.7 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -37,15 +39,15 @@ RUN mkdir -p /usr/src/app/
 # RF24 Compilation
 WORKDIR /usr/src/app/RF24
 CMD ./configure
-RUN 'make install'
+RUN CC=gcc-4.7 'make install
 
 # RF24Network Compilation
 WORKDIR /usr/src/app/RF24Network
 CMD ./configure
-RUN 'make install'
+RUN CC=gcc-4.7 'make install'
 
 WORKDIR /usr/src/app/RF24Network/examples_RPi
-RUN make
+RUN CC=gcc-4.7 make
 RUN chmod +x ./helloworld_rx
 RUN mkdir -p /data/logs/RF24Network
 CMD ./helloworld_rx > /data/logs/RF24Network/helloworld_rx.log
