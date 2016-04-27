@@ -39,12 +39,10 @@ RUN mkdir -p /usr/src/app/
 
 # RF24 Compilation
 WORKDIR /usr/src/app/RF24
-RUN ./configure
 RUN CC=gcc-4.7 'make install'
 
 # RF24Network Compilation
 WORKDIR /usr/src/app/RF24Network
-RUN ./configure
 RUN CC=gcc-4.7 'make install'
 
 WORKDIR /usr/src/app/RF24Network/examples_RPi
