@@ -5,6 +5,9 @@ else
 	npm start
 fi
 
+# Run the RF24Network server parsin messages from Nodes
+./helloworld_rx > /data/logs/RF24Network/helloworld_rx.log
+
 # We run the Python app after the wifi connection has been established
 # and the previous command has exited.
 cd ./python-server && python main.py
