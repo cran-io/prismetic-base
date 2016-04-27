@@ -31,12 +31,17 @@ COPY ssh.sh /ssh.sh
 
 CMD ["bash", "/ssh.sh"]
 
+# Making app dir
+RUN mkdir -p /usr/src/app/
+
 # RF24 Compilation
 WORKDIR /usr/src/app/RF24
+CMD ./configure
 RUN make install
 
 # RF24Network Compilation
 WORKDIR /usr/src/app/RF24Network
+CMD ./configure
 RUN make install
 
 WORKDIR /usr/src/app/RF24Network/examples_RPi
@@ -53,7 +58,6 @@ RUN systemctl disable connman
 
 COPY ./assets/bind /etc/bind
 
-RUN mkdir -p /usr/src/app/
 WORKDIR /usr/src/app
 
 COPY package.json ./
