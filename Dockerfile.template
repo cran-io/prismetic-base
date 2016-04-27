@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
 	python-dev \
 	python-dbus \
 	python-pip \
+	build-essential \
 	make \
 	cmake \
 	gcc-4.7 \
@@ -31,26 +32,26 @@ RUN mkdir /var/run/sshd \
 ENV INITSYSTEM on
 COPY ssh.sh /ssh.sh
 
-CMD ["bash", "/ssh.sh"]
+RUN ["bash", "/ssh.sh"]
 
 # Making app dir
 RUN mkdir -p /usr/src/app/
 
 # RF24 Compilation
 WORKDIR /usr/src/app/RF24
-CMD ./configure
+RUN ./configure
 RUN CC=gcc-4.7 'make install'
 
 # RF24Network Compilation
 WORKDIR /usr/src/app/RF24Network
-CMD ./configure
+RUN ./configure
 RUN CC=gcc-4.7 'make install'
 
 WORKDIR /usr/src/app/RF24Network/examples_RPi
 RUN CC=gcc-4.7 make
 RUN chmod +x ./helloworld_rx
 RUN mkdir -p /data/logs/RF24Network
-CMD ./helloworld_rx > /data/logs/RF24Network/helloworld_rx.log
+RUN ./helloworld_rx > /data/logs/RF24Network/helloworld_rx.log
 
 # Python Flask package
 RUN pip install flask
