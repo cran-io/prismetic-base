@@ -34,6 +34,7 @@ RUN ["bash", "/ssh.sh"]
 
 # Making app dir
 RUN mkdir -p /usr/src/app/
+COPY . /usr/src/app
 
 # RF24 Compilation
 WORKDIR /usr/src/app/RF24
