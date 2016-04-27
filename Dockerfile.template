@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /var/run/sshd \
-    && echo 'root:resin' | chpasswd \
+    && echo 'root:root' | chpasswd \
     && touch /etc/ssh/sshd_config \
     && sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
     && sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
@@ -59,7 +59,9 @@ VOLUME /var/lib/connman
 WORKDIR /usr/src/app/RF24Network
 RUN CC=gcc-4.7 sudo make install
 
-CMD modprobe spi-dev
+# RF24Network Compilation
+WORKDIR /usr/src/app/RF24Network
+RUN CC=gcc-4.7 sudo make install
 
 WORKDIR /usr/src/app/RF24Network/examples_RPi
 RUN CC=gcc-4.7 make
