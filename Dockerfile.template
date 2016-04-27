@@ -37,18 +37,18 @@ RUN mkdir -p /usr/src/app/
 COPY . /usr/src/app
 
 # RF24 Compilation
-WORKDIR /usr/src/app/RF24
-RUN 'make install'
+# WORKDIR /usr/src/app/RF24
+# RUN 'make install'
 
 # RF24Network Compilation
-WORKDIR /usr/src/app/RF24Network
-RUN 'make install'
+# WORKDIR /usr/src/app/RF24Network
+# RUN 'make install'
 
-WORKDIR /usr/src/app/RF24Network/examples_RPi
-RUN CC=gcc-4.7 make
-RUN chmod +x ./helloworld_rx
-RUN mkdir -p /data/logs/RF24Network
-RUN ./helloworld_rx > /data/logs/RF24Network/helloworld_rx.log
+# WORKDIR /usr/src/app/RF24Network/examples_RPi
+# RUN make
+# RUN chmod +x ./helloworld_rx
+# RUN mkdir -p /data/logs/RF24Network
+# RUN ./helloworld_rx > /data/logs/RF24Network/helloworld_rx.log
 
 # Python Flask package
 RUN pip install flask
