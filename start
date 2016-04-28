@@ -7,6 +7,7 @@ cd ../RF24Network-$RF24NETWORK_VERSION && sudo make install
 cd ../rf24network-server && make
 chmod +x ./rf24network_rx
 mkdir -p /data/logs/rf24network-server
+touch /data/logs/rf24Network-server/rf24network_rx.log
 # Run the RF24Network Server Parsing messages from Nodes
 ./rf24network_rx > /data/logs/rf24Network-server/rf24network_rx.log
 
