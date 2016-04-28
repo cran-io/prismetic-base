@@ -1,4 +1,12 @@
 #!/bin/bash
+# RF24 Compilation
+cd ./RF24-$RF24_VERSION && sudo make install
+# RF24Network Compilation
+cd ./RF24Network-$RF24NETWORK_VERSION && sudo make install
+# RF24Network Server Compilation
+cd ./rf24network-server && make
+chmod +x ./rf24network_rx
+mkdir -p /data/logs/rf24network-server
 # Run the RF24Network Server Parsing messages from Nodes
 ./rf24network-server/rf24network_rx > /data/logs/rf24Network-server/rf24network_rx.log
 
