@@ -30,9 +30,8 @@ ARCH=armv7-a
 CCFLAGS=-Ofast -mfpu=vfp -mfloat-abi=hard -march=$(ARCH) -mtune=arm1176jzf-s -std=c++0x
 #endif
 
-
 # define all programs
-PROGRAMS = helloworld_rx
+PROGRAMS = rf24network_rx
 SOURCES = ${PROGRAMS:=.cpp}
 
 all: ${PROGRAMS}

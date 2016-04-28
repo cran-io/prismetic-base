@@ -48,8 +48,8 @@ unsigned long packets_sent;          // How many have we sent already
 
 
 struct payload_t {                  // Structure of our payload
-  unsigned long ms;
-  unsigned long counter;
+  unsigned char totalPeopleInside;
+  signed char deltaPeople;
 };
 
 int main(int argc, char** argv) 
@@ -58,25 +58,25 @@ int main(int argc, char** argv)
 
 	radio.begin();
 	
-	delay(5);
+	delay(1);
 	network.begin(/*channel*/ 90, /*node address*/ this_node);
 	radio.printDetails();
 	
 	while(1)
 	{
 
-		  network.update();
-  		  while ( network.available() ) {     // Is there anything ready for us?
+		network.update();
+  		while ( network.available() ) {     // Is there anything ready for us?
     			
 		 	RF24NetworkHeader header;        // If so, grab it and print it out
-   			 payload_t payload;
-  			 network.read(header,&payload,sizeof(payload));
+			payload_t payload;
+  			network.read(header,&payload,sizeof(payload));
 			
-			printf("Received payload # %lu at %lu \n",payload.counter,payload.ms);
-  }		  
-		 //sleep(2);
-		 delay(2000);
-		 //fclose(pFile);
+			std::cout << payload.totalPeopleInside << "," << payload.deltaPeople << std::endl;
+  		}		  
+		//sleep(2);
+		delay(2000);
+		//fclose(pFile);
 	}
 
 	return 0;

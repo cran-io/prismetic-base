@@ -1,8 +1,6 @@
 #!/bin/bash
-# Compile and run the RF24Network Server Parsing messages from Nodes
-cd ./rf24network-server && make
-chmod +x ./rf24network-server/helloworld_rx
-./rf24network-server/helloworld_rx > /data/logs/rf24Network-server/helloworld_rx.log
+# Run the RF24Network Server Parsing messages from Nodes
+./rf24network-server/rf24network_rx > /data/logs/rf24Network-server/rf24network_rx.log
 
 if [[ "$INITSYSTEM" == "on" ]]; then
 	DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host_run/dbus/system_bus_socket npm start
