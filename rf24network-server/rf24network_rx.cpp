@@ -30,18 +30,15 @@
 // Setup for GPIO 22 CE and CE0 CSN with SPI Speed @ 4Mhz
 //RF24 radio(RPI_V2_GPIO_P1_15, BCM2835_SPI_CS0, BCM2835_SPI_SPEED_4MHZ); 
 
-// Setup for GPIO 22 CE and CE1 CSN with SPI Speed @ 8Mhz
+// Setup for GPIO 22 CE and CE0 CSN with SPI Speed @ 8Mhz
 RF24 radio(RPI_V2_GPIO_P1_15, BCM2835_SPI_CS0, BCM2835_SPI_SPEED_8MHZ);  
 
 RF24Network network(radio);
 
 // Address of our node in Octal format
-const uint16_t this_node = 00;
+const uint16_t base_node = 00;
 
-// Address of the other node in Octal format (01,021, etc)
-const uint16_t other_node = 01;
-
-const unsigned long interval = 2000; //ms  // How often to send 'hello world to the other unit
+const unsigned long interval = 500; //ms  // How often to send 'hello world to the other unit
 
 unsigned long last_sent;             // When did we last send?
 unsigned long packets_sent;          // How many have we sent already
@@ -59,7 +56,7 @@ int main(int argc, char** argv)
 	radio.begin();
 	
 	delay(1);
-	network.begin(/*channel*/ 90, /*node address*/ this_node);
+	network.begin(/*channel*/ 90, /*node address*/ base_node);
 	radio.printDetails();
 	
 	while(1)
@@ -74,9 +71,7 @@ int main(int argc, char** argv)
 			
 			std::cout << payload.totalPeopleInside << "," << payload.deltaPeople << std::endl;
   		}		  
-		//sleep(2);
-		delay(2000);
-		//fclose(pFile);
+		delay(interval);
 	}
 
 	return 0;
