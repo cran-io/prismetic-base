@@ -62,7 +62,7 @@ int main(int argc, char** argv)
 	
 	while(1)
 	{
-		std::cout << "NETWORK: Update" << std::endl;
+		//std::cout << "NETWORK: Update" << std::endl;
 		network.update();
   		while ( network.available() ) {     // Is there anything ready for us?
     		std::cout << "NETWORK: New Message" << std::endl;
