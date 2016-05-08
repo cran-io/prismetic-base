@@ -15,7 +15,7 @@
 #include <ctime>
 #include <stdio.h>
 #include <time.h>
-
+#include <fstream>
 
 /**
  * g++ -L/usr/lib main.cc -I/usr/include -o main -lrrd
@@ -66,14 +66,28 @@ int main(int argc, char** argv)
 		//std::cout << "NETWORK: Update" << std::endl;
 		network.update();
   		while ( network.available() ) {     // Is there anything ready for us?
-    		std::cout << "NETWORK: New Message" << std::endl;
+			time_t ltime = time(NULL); /* get current cal time */
+    		std::cout << "NETWORK: New Message on " << asctime(localtime(&ltime)) << std::endl;
 
 		 	RF24NetworkHeader header;        // If so, grab it and print it out
 			payload_t payload;
   			network.read(header,&payload,sizeof(payload));
 			
-			std::cout << "Total people inside: " << (int)payload.totalPeopleInside << std::endl;
-			std::cout << "People IN: " << payload.peopleIn << " , People OUT: " << payload.peopleOut << "." << std::endl;
+			std::cout << "Total people inside: " << (long)payload.totalPeopleInside << std::endl;
+			std::cout << "People IN: " << (int)payload.peopleIn << " , People OUT: " << (int)payload.peopleOut << "." << std::endl;
+
+			if( payload.peopleIn || payload.peopleOut ){
+				char filename[25];
+				sprintf(filename, "%d - %d.dat", (int)ltime, (int)header.from_node);
+				ofstream output;
+  				output.open(filename);
+  				output << asctime(localtime(&ltime)) << std::endl;
+  				output << (int)header.from_node << std::endl;
+  				output << (int)payload.peopleIn << std::endl;
+  				output << (int)payload.peopleOut << std::endl;
+  				output.close();
+  				std::cout << "File created: " << filename << std::endl;
+			}
   		}		  
 		delay(interval);
 	}
