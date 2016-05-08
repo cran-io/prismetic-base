@@ -45,8 +45,9 @@ unsigned long packets_sent;          // How many have we sent already
 
 
 struct payload_t {                  // Structure of our payload
-  unsigned char totalPeopleInside;
-  signed char deltaPeople;
+  long totalPeopleInside;
+  int peopleIn;
+  int peopleOut;
 };
 
 int main(int argc, char** argv) 
@@ -71,7 +72,8 @@ int main(int argc, char** argv)
 			payload_t payload;
   			network.read(header,&payload,sizeof(payload));
 			
-			std::cout << payload.totalPeopleInside << "," << payload.deltaPeople << std::endl;
+			std::cout << "Total people inside: " << (int)payload.totalPeopleInside << std::endl;
+			std::cout << "People IN: " << payload.peopleIn << " , People OUT: " << payload.peopleOut << "." << std::endl;
   		}		  
 		delay(interval);
 	}
