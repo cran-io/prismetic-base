@@ -38,11 +38,7 @@ RF24Network network(radio);
 // Address of our node in Octal format
 const uint16_t base_node = 00;
 
-const unsigned long interval = 500; //ms  // How often to send 'hello world to the other unit
-
-unsigned long last_sent;             // When did we last send?
-unsigned long packets_sent;          // How many have we sent already
-
+const unsigned long interval = 500; //ms
 
 struct payload_t {                  // Structure of our payload
   long totalPeopleInside;
@@ -79,12 +75,12 @@ int main(int argc, char** argv)
 			if( payload.peopleIn || payload.peopleOut ){
 				char filename[25];
 				sprintf(filename, "%d - %d.dat", (int)ltime, (int)header.from_node);
-				ofstream output;
+				std::ofstream output;
   				output.open(filename);
   				output << asctime(localtime(&ltime)) << std::endl;
   				output << (int)header.from_node << std::endl;
   				output << (int)payload.peopleIn << std::endl;
-  				output << (int)payload.peopleOut << std::endl;
+  				output << (int)payload.peopleOut;
   				output.close();
   				std::cout << "File created: " << filename << std::endl;
 			}
