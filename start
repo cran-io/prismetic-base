@@ -20,7 +20,8 @@ fi
 
 # We run the Python app after the wifi connection has been established
 # and the previous command has exited.
-cd ../python-server && python main.py
+cd ../python-server && python main.py 
+cd ../serverpost && python test_post.py
 
 while true
 do
