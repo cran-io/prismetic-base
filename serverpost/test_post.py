@@ -11,7 +11,7 @@ idTable={}
 dataPath="/data"
 filename=dataPath+"/Syncfile.sync"
 headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-deviceId= 5739d8a8f5dfba02145fadc0
+deviceId= '5739d8a8f5dfba02145fadc0'
 urlBase='http://192.168.1.56:8080/api/devices/'
 
 
@@ -40,7 +40,7 @@ def getFilesIds(fileList):
 
 
 def request_sensorid(idname):
-    url = urlBase+str(deviceId)+'/sensors/'
+    url = urlBase+deviceId+'/sensors/'
     jasonPost=json.dumps({"name":idname , "active": True})
     print(jasonPost)
     try:
@@ -145,7 +145,7 @@ def postNewData():
             data.close()
             print("gettinidfrommname")
             print(getIdfromname(datafile))
-            url = urlBase+str(deviceId)+'/sensors/'+ idTable[getIdfromname(datafile)] +'/sensors_data'
+            url = urlBase+deviceId+'/sensors/'+ idTable[getIdfromname(datafile)] +'/sensors_data'
             print("Arme la url")
             try:
                 r = requests.post(url, data=jsontosend,headers=headers)
