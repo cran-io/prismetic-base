@@ -128,7 +128,7 @@ def jasonfi(data):
     peopleout=data.readline().split('\n')[0]
     print("jasonify")
     try:
-        tosend=json.dumps({"enter": int(peoplein),"exit":int(peopleout),"sentAt":"fecha"})
+        tosend=json.dumps({"enter": peoplein,"exit":peopleout,"sentAt":"fecha"})
         print(tosend)
         return tosend
     except:
