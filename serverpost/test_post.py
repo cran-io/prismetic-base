@@ -8,7 +8,7 @@ from datetime import datetime
 
 
 idTable={}
-dataPath="/home/alan/Documents/Datasensor"
+dataPath="/data"
 filename=dataPath+"/Syncfile.sync"
 headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 deviceId= 5739d8a8f5dfba02145fadc0

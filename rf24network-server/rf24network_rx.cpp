@@ -74,7 +74,7 @@ int main(int argc, char** argv)
 
 			if( payload.peopleIn || payload.peopleOut ){
 				char filename[25];
-				sprintf(filename, "%d - %d.dat", (int)ltime, (int)header.from_node);
+				sprintf(filename, "/data/%d - %d.dat", (int)ltime, (int)header.from_node);
 				std::ofstream output;
   				output.open(filename);
   				output << asctime(localtime(&ltime)) << std::endl;
