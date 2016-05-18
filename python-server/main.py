@@ -34,7 +34,7 @@ def setTime():
         print("Post error")
         print("Retrying request")
         time.sleep(2)
-        setTime(idname)
+        setTime()
     os.system("sudo timedatectl set-time '" +data+ "'")
     
 
@@ -234,7 +234,7 @@ def postNewData():
             print("Algun archivo tiene un error")
             return "Error"
 
-setTime()
+#setTime()
 loadDeviceId()
 while(1):
     time.sleep(1)
