@@ -1,4 +1,4 @@
-from flask import Flask
+
 import urllib2
 import requests
 import json
@@ -9,7 +9,7 @@ import fnmatch
 import time
 from uuid import getnode as get_mac
 
-app = Flask(__name__)
+
 
 ##Variables to post server
 idTable={}
@@ -18,13 +18,30 @@ dataPath="/data"
 filename=dataPath+"/Syncfile.sync"
 deviceIdfilename=dataPath+"/Device_id.sync"
 headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-deviceId = '573ca3ac171edd753052289b'
-#apiurl='http://192.168.1.56:8080/api/'
+deviceId = ''
+#apiurl='http://prismetic.cran.io:8080/api/'
 apiurl='http://prismetic.cran.io:8080/api/'
 urlBase='http://prismetic.cran.io:8080/api/devices/'
 
+def setTime():
+    url = apiurl+'time'
+    try:
+        r = requests.get(url)
+        data=r.json()['time']
+        print data
+        print ("La hora se cambio")
+    except:
+        print("Post error")
+        print("Retrying request")
+        time.sleep(2)
+        setTime(idname)
+    os.system("sudo timedatectl set-time '" +data+ "'")
+    
+
 def loadDeviceId():
     mac = str(get_mac())
+    global deviceId
+    global deviceIdTable 
     newlines=[]
     try:
         deviceId=deviceIdTable[mac]
@@ -33,23 +50,29 @@ def loadDeviceId():
             with open(deviceIdfilename) as f:
                 print("lineread")
                 lineread = f.readlines()
-            deviceIdTable[mac]=lineread[1]
+                print lineread
+                print lineread.split(':')[2]
+            print("ESCRBI LA CONCHA DE LA LORA")
+            deviceIdTable[mac]=lineread.split(':')[2]
+            
         except :
-            deviceId=request_DeviceId(mac)
+            deviceId=str(request_DeviceId(mac))
             try:
                 os.remove(deviceIdfilename)
             except:
                 print("No hace falta borrarlo, el archivo no existe")
-            
+            print(deviceId)
             idfile=open(deviceIdfilename,'wb+')
             newlines.append(mac)
+            newlines.append(":")
             newlines.append(deviceId)
             idfile.writelines(newlines)
+            idfile.close()
 
 
 def request_DeviceId(idname):
     url = urlBase
-    jasonPost=json.dumps({"model":"Retail0" ,"mac":str(idname), "active": True})
+    jasonPost=json.dumps({"model":str(idname) ,"mac":str(idname), "active": True})
     print(jasonPost)
     try:
         r = requests.post(url, data=jasonPost,headers=headers)
@@ -77,7 +100,7 @@ def getFilesIds(fileList):
     for i in range(0, len(fileList)):
         buffer=fileList[i].split('/')
         a=(buffer[len(buffer)-1].index('-')+2)
-        b=(buffer[len(buffer)-1].index('.dat')-1)
+        b=(buffer[len(buffer)-1].index('.dat'))
         ids.append(buffer[len(buffer)-1][a:b])
     output = set()
     for x in ids:
@@ -89,12 +112,14 @@ def getFilesIds(fileList):
 
 def request_sensorid(idname):
     url = urlBase+deviceId+'/sensors/'
+    print url
     jasonPost=json.dumps({"name":"Entrada principal" , "active": True})
     print(jasonPost)
     try:
+        print("intentando request")
         r = requests.post(url, data=jasonPost,headers=headers)
         data=r.json()['_id']
-        print data
+        print ("new sensor id: "+data)
     except:
         print("Post error")
         return -1
@@ -119,11 +144,12 @@ def updateFile(newlines):
     print("El archivo fue creado con exito")
 
 def getIdfromname(name):
-
+    
     buffer=name.split('/')
     a=(buffer[len(buffer)-1].index('-')+2)
-    b=(buffer[len(buffer)-1].index('.dat')-1)
+    b=(buffer[len(buffer)-1].index('.dat'))
     id=(buffer[len(buffer)-1][a:b])
+    print("EL ID ES: "+id)
     return id
 
 def refreshDict(uniqueIds):
@@ -132,6 +158,7 @@ def refreshDict(uniqueIds):
     writelines=[]
     newlines=[]
     lineread=[]
+    global idTable
     #print("Unique ids: " +str(uniqueIds))
     try:
         with open(filename) as f:
@@ -207,7 +234,8 @@ def postNewData():
             print("Algun archivo tiene un error")
             return "Error"
 
-#loadDeviceId();
+setTime()
+loadDeviceId()
 while(1):
-	time.sleep(1)
-	postNewData()
+    time.sleep(1)
+    postNewData()
