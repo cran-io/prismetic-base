@@ -20,7 +20,7 @@ deviceIdfilename=dataPath+"Device_id.sync"
 headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 deviceId= '5739d8a8f5dfba02145fadc0'
 #apiurl='http://192.168.1.56:8080/api/'
-apiurl='http://45.55.222.131:8080/api/'
+apiurl='http://prismetic.cran.io:8080/api/'
 urlBase=apiurl+'devices/'
 
 def loadDeviceId():
