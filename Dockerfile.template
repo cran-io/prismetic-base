@@ -38,16 +38,16 @@ COPY . /usr/src/app
 WORKDIR /usr/src/app
 
 # RF24 Compilation
-WORKDIR /usr/src/app
-ENV RF24_VERSION 1.1.6
-RUN curl -L github.com/TMRh20/RF24/archive/v$RF24_VERSION.tar.gz > rf24.tar.gz && tar xvzf rf24.tar.gz
+#WORKDIR /usr/src/app
+#ENV RF24_VERSION 1.1.6
+#RUN curl -L github.com/TMRh20/RF24/archive/v$RF24_VERSION.tar.gz > rf24.tar.gz && tar xvzf rf24.tar.gz
 #WORKDIR /usr/src/app/RF24-$RF24_VERSION
 #RUN sudo make install
 
 # RF24Network Compilation
-WORKDIR /usr/src/app
-ENV RF24NETWORK_VERSION 1.0.6
-RUN curl -L github.com/TMRh20/RF24Network/archive/v$RF24NETWORK_VERSION.tar.gz > rf24network.tar.gz && tar xvzf rf24network.tar.gz
+#WORKDIR /usr/src/app
+#ENV RF24NETWORK_VERSION 1.0.6
+#RUN curl -L github.com/TMRh20/RF24Network/archive/v$RF24NETWORK_VERSION.tar.gz > rf24network.tar.gz && tar xvzf rf24network.tar.gz
 #WORKDIR /usr/src/app/RF24Network-$RF24NETWORK_VERSION
 #RUN sudo make install
 

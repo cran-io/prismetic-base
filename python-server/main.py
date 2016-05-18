@@ -166,10 +166,10 @@ def postNewData():
 
 @app.route('/')
 def hello_world():
-	f = open('/data/logs/rf24network-server/rf24network_rx.log', 'r')
-	log = f.read()
-	f.close()
-	return log
+	#f = open('/data/logs/rf24network-server/rf24network_rx.log', 'r')
+	#log = f.read()
+	#f.close()
+	return 'Prismetic Base Online'
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=80)
