@@ -167,8 +167,9 @@ def checkNewData():
     f=checkIds(getFilesIds(getfilelist()))
 
 def jasonfi(data):
-    #name=data.readline().split('\n')[0]
+    
     date=data.readline().split('\n')[0]
+    name=data.readline().split('\n')[0]
     #data.readline().split('\n')[0]
     peoplein=data.readline().split('\n')[0]
     peopleout=data.readline().split('\n')[0]
