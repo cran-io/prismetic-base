@@ -5,6 +5,7 @@ import json
 import glob
 import random
 import os
+import fnmatch
 from datetime import datetime
 
 app = Flask(__name__)
@@ -166,10 +167,17 @@ def postNewData():
 
 @app.route('/')
 def hello_world():
-	#f = open('/data/logs/rf24network-server/rf24network_rx.log', 'r')
-	#log = f.read()
-	#f.close()
-	return 'Prismetic Base Online'
+    output = 'Prismetic Base Online\n'
+    for root, dirnames, filenames in os.walk('/data/logs'):
+        for logfile in fnmatch.filter(filenames, '*.log'):
+            output += '##############################\n'
+            output += os.path.join(root, logfile) + '\n'
+            output += '##############################\n'
+            f = open(os.path.join(root, logfile), 'r')
+            log = f.read()
+            f.close()
+            output += log + '\n'
+	return output
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=80)

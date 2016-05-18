@@ -10,7 +10,13 @@
 #touch /data/logs/rf24network-server/rf24network_rx.log
 # Run the RF24Network Server Parsing messages from Nodes
 #./rf24network_rx > /data/logs/rf24network-server/rf24network_rx.log &
-cd ./python-serial && python main.py 
+
+#Run python-serial parser
+chmod +x ./python-serial/main.py
+mkdir -p /data/logs/python-serial
+touch /data/logs/python-serial/out.log
+touch /data/logs/python-serial/err.log
+nohup ./python-serial/main.py >/data/logs/python-serial/out.log 2>/data/logs/python-serial/err.log &
 
 # Run Wifi Connect
 if [[ "$INITSYSTEM" == "on" ]]; then
@@ -19,9 +25,12 @@ else
 	npm start
 fi
 
-# We run the Python app after the wifi connection has been established
-# and the previous command has exited.
-cd ../python-server && python main.py 
+# We run the Python server after the wifi connection has been established.
+chmod +x ./python-server/main.py
+mkdir -p /data/logs/python-server
+touch /data/logs/python-server/out.log
+touch /data/logs/python-server/err.log
+nohup ./python-server/main.py >/data/logs/python-server/out.log 2>/data/logs/python-server/err.log &
 
 while true
 do
