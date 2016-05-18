@@ -13,6 +13,7 @@ while True:
                 peopleIn=int(values[1])
                 peopleOut=int(values[2])
                 data=[id,peopleIn,peopleOut]
+                print 'New data:' + str(data)
                 if (peopleIn>0) or (peopleOut>0):
                         file = open("/data/"+str(int(time.time()))+" - "+values[0]+".dat",'w')
                         file.write(str(datetime.now())+'\n')
