@@ -18,7 +18,7 @@ dataPath="/data"
 filename=dataPath+"/Syncfile.sync"
 deviceIdfilename=dataPath+"Device_id.sync"
 headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-deviceId= '5739d8a8f5dfba02145fadc0'
+deviceId = '5739d8a8f5dfba02145fadc0'
 #apiurl='http://192.168.1.56:8080/api/'
 apiurl='http://prismetic.cran.io:8080/api/'
 urlBase=apiurl+'devices/'
@@ -35,7 +35,7 @@ def loadDeviceId():
                 lineread = f.readlines()
             deviceIdTable[mac]=lineread[1]
         except :
-            deviceId=request_DeviceId(mac):
+            deviceId=request_DeviceId(mac)
             try:
                 os.remove(deviceIdfilename)
             except:
@@ -48,7 +48,7 @@ def loadDeviceId():
 
 
 def request_DeviceId(idname):
-    url = apirul+'device'
+    url = urlBase
     jasonPost=json.dumps({"model":"RaspberryPi2" ,"mac":idname, "active": True})
     print(jasonPost)
     try:
