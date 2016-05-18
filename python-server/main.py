@@ -7,18 +7,58 @@ import random
 import os
 import fnmatch
 import time
+from uuid import getnode as get_mac
 
 app = Flask(__name__)
 
 ##Variables to post server
 idTable={}
+deviceIdTable={}
 dataPath="/data"
 filename=dataPath+"/Syncfile.sync"
+deviceIdfilename=dataPath+"Device_id.sync"
 headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 deviceId= '5739d8a8f5dfba02145fadc0'
-urlBase='http://192.168.1.56:8080/api/devices/'
+apiurl='http://192.168.1.56:8080/api/'
+#apiurl='http://192.168.1.56:8080/api/'
+urlBase=apiurl+'devices/'
+
+def loadDeviceId():
+    mac = str(get_mac())
+    newlines=[]
+    try:
+        deviceId=deviceIdTable[mac]
+    except:
+        try:
+            with open(deviceIdfilename) as f:
+                print("lineread")
+                lineread = f.readlines()
+            deviceIdTable[mac]=lineread[1]
+        except :
+            deviceId=request_DeviceId(mac):
+            try:
+                os.remove(deviceIdfilename)
+            except:
+                print("No hace falta borrarlo, el archivo no existe")
+            
+            idfile=open(deviceIdfilename,'wb+')
+            newlines.append(mac)
+            newlines.append(deviceId)
+            idfile.writelines(newlines)
 
 
+def request_DeviceId(idname):
+    url = apirul+'device'
+    jasonPost=json.dumps({"model":"RaspberryPi2" ,"mac":idname, "active": True})
+    print(jasonPost)
+    try:
+        r = requests.post(url, data=jasonPost,headers=headers)
+        data=r.json()['_id']
+        print data
+    except:
+        print("Post error")
+        loadDeviceId()
+    return data
 
 
 def getfilelist():
@@ -127,14 +167,14 @@ def checkNewData():
     f=checkIds(getFilesIds(getfilelist()))
 
 def jasonfi(data):
-    name=data.readline().split('\n')[0]
+    #name=data.readline().split('\n')[0]
     date=data.readline().split('\n')[0]
-    data.readline().split('\n')[0]
+    #data.readline().split('\n')[0]
     peoplein=data.readline().split('\n')[0]
     peopleout=data.readline().split('\n')[0]
     print("jasonify")
     try:
-        tosend=json.dumps({"enter": peoplein,"exit":peopleout,"sentAt":"fecha"})
+        tosend=json.dumps({"enter": peoplein,"exit":peopleout,"sentAt":date})
         print(tosend)
         return tosend
     except:
@@ -181,6 +221,7 @@ def hello_world():
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=80)
 
+loadDeviceId();
 while(1):
 	time.sleep(1)
 	postNewData()
