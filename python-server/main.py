@@ -6,7 +6,7 @@ import glob
 import random
 import os
 import fnmatch
-from datetime import datetime
+import time
 
 app = Flask(__name__)
 
@@ -174,10 +174,9 @@ def hello_world():
             output += os.path.join(root, logfile) + '\n'
             output += '##############################\n'
             f = open(os.path.join(root, logfile), 'r')
-            log = f.read()
+            output += f.read() + '\n'
             f.close()
-            output += log + '\n'
-	return output
+    return output
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=80)
