@@ -204,23 +204,6 @@ def postNewData():
         except:
             print("Algun archivo tiene un error")
             return "Error"
-    
-
-@app.route('/')
-def hello_world():
-    output = 'Prismetic Base Online\n'
-    for root, dirnames, filenames in os.walk('/data/logs'):
-        for logfile in fnmatch.filter(filenames, '*.log'):
-            output += '##############################\n'
-            output += os.path.join(root, logfile) + '\n'
-            output += '##############################\n'
-            f = open(os.path.join(root, logfile), 'r')
-            output += f.read() + '\n'
-            f.close()
-    return output
-
-if __name__ == '__main__':
-	app.run(host='0.0.0.0', port=80)
 
 loadDeviceId();
 while(1):
