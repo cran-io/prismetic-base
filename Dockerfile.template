@@ -60,6 +60,9 @@ RUN curl -L github.com/TMRh20/RF24Network/archive/v$RF24NETWORK_VERSION.tar.gz >
 # Python Flask package
 RUN pip install flask
 
+# Python Serial package
+RUN pip install pyserial
+
 # Wifi Connect
 RUN systemctl disable connman
 
