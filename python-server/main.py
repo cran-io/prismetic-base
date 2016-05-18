@@ -16,12 +16,12 @@ idTable={}
 deviceIdTable={}
 dataPath="/data"
 filename=dataPath+"/Syncfile.sync"
-deviceIdfilename=dataPath+"Device_id.sync"
+deviceIdfilename=dataPath+"/Device_id.sync"
 headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-deviceId = '573c9e9e7cc9c20b28e5fdcc'
+deviceId = '573ca3ac171edd753052289b'
 #apiurl='http://192.168.1.56:8080/api/'
 apiurl='http://prismetic.cran.io:8080/api/'
-urlBase='http://prismetic.cran.io:8080/api/devices/573ca3ac171edd753052289b'
+urlBase='http://prismetic.cran.io:8080/api/devices/'
 
 def loadDeviceId():
     mac = str(get_mac())
@@ -57,7 +57,9 @@ def request_DeviceId(idname):
         print data
     except:
         print("Post error")
-        request_DeviceId
+        print("Retrying request")
+        time.sleep(2)
+        request_DeviceId(idname)
     return data
 
 
@@ -86,7 +88,7 @@ def getFilesIds(fileList):
 
 
 def request_sensorid(idname):
-    url = 'http://prismetic.cran.io:8080/api/devices/573ca3ac171edd753052289b/sensors/'
+    url = urlBase+deviceId+'/sensors/'
     jasonPost=json.dumps({"name":"Entrada principal" , "active": True})
     print(jasonPost)
     try:
@@ -192,7 +194,7 @@ def postNewData():
             data.close()
             print("gettinidfrommname")
             print(getIdfromname(datafile))
-            url = urlBase+'/sensors/'+ idTable[getIdfromname(datafile)] +'/sensors_data'
+            url = urlBase+deviceId+'/sensors/'+ idTable[getIdfromname(datafile)] +'/sensors_data'
             print("Arme la url")
             try:
                 r = requests.post(url, data=jsontosend,headers=headers)
