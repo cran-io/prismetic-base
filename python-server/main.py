@@ -56,6 +56,7 @@ def loadDeviceId():
             deviceIdTable[mac]=lineread[0].split(':')[1]
             print(deviceIdTable[mac])
             print("ESCRIBI")
+            deviceId=deviceIdTable[mac]
             
         except :
             deviceId=str(request_DeviceId(mac))
