@@ -41,7 +41,7 @@ def setTime():
 def loadDeviceId():
     mac = str(get_mac())
     global deviceId
-    global deviceIdTable 
+    global deviceIdTable
     newlines=[]
     try:
         deviceId=deviceIdTable[mac]
@@ -51,9 +51,11 @@ def loadDeviceId():
                 print("lineread")
                 lineread = f.readlines()
                 print lineread
-                print lineread.split(':')[2]
+                print lineread[0].split(':')[1]
             print("ESCRBI LA CONCHA DE LA LORA")
-            deviceIdTable[mac]=lineread.split(':')[2]
+            deviceIdTable[mac]=lineread[0].split(':')[1]
+            print(deviceIdTable[mac])
+            print("ESCRIBI")
             
         except :
             deviceId=str(request_DeviceId(mac))
