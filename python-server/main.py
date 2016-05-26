@@ -15,6 +15,7 @@ from uuid import getnode as get_mac
 idTable={}
 deviceIdTable={}
 dataPath="/data"
+accountid=""
 filename=dataPath+"/Syncfile.sync"
 deviceIdfilename=dataPath+"/Device_id.sync"
 headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
@@ -75,7 +76,7 @@ def loadDeviceId():
 
 def request_DeviceId(idname):
     url = urlBase
-    jasonPost=json.dumps({"model":str(idname) ,"mac":str(idname), "active": True})
+    jasonPost=json.dumps({"model":str(idname) ,"mac":str(idname), "account":accountid, "active": True})
     print(jasonPost)
     try:
         r = requests.post(url, data=jasonPost,headers=headers)
@@ -238,6 +239,24 @@ def postNewData():
             return "Error"
 
 #setTime()
+
+def getAccountId():
+    try:
+        os.system("rm /data/Account.sync")
+    except:
+        print("File unexistent")
+
+    os.system("export $(xargs -0 -n 1 < /proc/1/environ)")
+    os.system("echo $Account >> /data/Account.sync")
+
+    fileID=open("/data/Account.sync",'r')
+
+    accountid=str(fileID.readlines()[0].split('\n')[0])
+    print ("Account id:"+accountid)
+
+
+
+getAccountId()
 loadDeviceId()
 while(1):
     time.sleep(1)
