@@ -25,8 +25,7 @@ RUN mkdir /var/run/sshd \
     && touch /etc/ssh/sshd_config \
     && sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
     && sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config \
-    && export $(xargs -0 -n 1 < /proc/1/environ) \
-    && echo $Account >> /data/Account.sync
+    && export $(xargs -0 -n 1 < /proc/1/environ) 
 
 # SSH Init
 ENV INITSYSTEM on
