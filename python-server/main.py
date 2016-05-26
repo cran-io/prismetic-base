@@ -18,6 +18,7 @@ dataPath="/data"
 accountid=""
 filename=dataPath+"/Syncfile.sync"
 deviceIdfilename=dataPath+"/Device_id.sync"
+accountIdfilename=dataPath+"/Account.sync"
 headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 deviceId = ''
 #apiurl='http://prismetic.cran.io:8080/api/'
@@ -243,15 +244,17 @@ def postNewData():
 def getAccountId():
     global accountid
     try:
-        os.system("rm /data/Account.sync")
+        os.system("rm "+filename)
+        os.system("rm "+deviceIdfilename)
+        os.system("rm "+accountIdfilename)
     except:
         print("File unexistent")
 
     os.system("cd")
     os.system("export $(xargs -0 -n 1 < /proc/1/environ)")
-    os.system("echo $Account >> /data/Account.sync")
+    os.system("echo $Account >> "+accountIdfilename)
 
-    fileID=open("/data/Account.sync",'r')
+    fileID=open(accountIdfilename,'r')
     file=fileID.readlines()[0].split('\n')
     print(file)
     accountid=file[0]
