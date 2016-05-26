@@ -118,7 +118,7 @@ def getFilesIds(fileList):
 def request_sensorid(idname):
     url = urlBase+deviceId+'/sensors/'
     print url
-    jasonPost=json.dumps({"name":"Entrada principal" , "active": True})
+    jasonPost=json.dumps({"name":"Entrada principal" ,"mac":str(idname),"active": True})
     print(jasonPost)
     try:
         print("intentando request")
