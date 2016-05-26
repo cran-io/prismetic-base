@@ -24,7 +24,7 @@ RUN mkdir /var/run/sshd \
     && echo 'root:root' | chpasswd \
     && touch /etc/ssh/sshd_config \
     && sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
-    && sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
+    && sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config \
     && export $(xargs -0 -n 1 < /proc/1/environ)
 
 # SSH Init
