@@ -241,18 +241,22 @@ def postNewData():
 #setTime()
 
 def getAccountId():
+    global accountid
     try:
         os.system("rm /data/Account.sync")
     except:
         print("File unexistent")
 
+    os.system("cd")
     os.system("export $(xargs -0 -n 1 < /proc/1/environ)")
     os.system("echo $Account >> /data/Account.sync")
 
     fileID=open("/data/Account.sync",'r')
-
-    accountid=str(fileID.readlines()[0].split('\n')[0])
+    file=fileID.readlines()[0].split('\n')
+    print(file)
+    accountid=file[0]
     print ("Account id:"+accountid)
+
 
 
 
