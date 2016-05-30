@@ -53,10 +53,10 @@ WORKDIR /usr/src/app/RF24Network-$RF24NETWORK_VERSION
 RUN sudo make install
 
 # RF24Network Server Compilation
-WORKDIR /usr/src/app/rf24network-server
-RUN make
-RUN chmod +x ./rf24network_rx
-RUN mkdir -p /data/logs/rf24network-server
+#WORKDIR /usr/src/app/rf24network-server
+#RUN make
+#RUN chmod +x ./rf24network_rx
+#RUN mkdir -p /data/logs/rf24network-server
 
 # Python Flask package
 RUN pip install flask
