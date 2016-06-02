@@ -2,7 +2,7 @@ import serial
 import time
 from datetime import datetime
 
-ser = serial.Serial('/dev/ttyACM0',57600,timeout=1s)
+ser = serial.Serial('/dev/ttyACM0',57600,timeout=1)
 
 while True:
         income = ser.readline()
