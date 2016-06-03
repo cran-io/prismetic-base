@@ -13,7 +13,7 @@ while True:
                 peopleIn=int(values[1])
                 peopleOut=int(values[2])
                 data=[id,peopleIn,peopleOut]
-                sys.stdout.write 'New data:' + str(data)
+                sys.stdout.write('New data:' + str(data))
                 # ------Temporary
                 if(id!=2):
                         sys.stderr.write(income,file=sys.stderr)
